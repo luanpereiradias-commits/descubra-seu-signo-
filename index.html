@@ -1,1 +1,229 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Descubra o Seu Signo</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', system-ui, sans-serif;
+        }
 
+        body {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #fff;
+            padding: 20px;
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(12px);
+            border-radius: 20px;
+            padding: 40px 30px;
+            width: 100%;
+            max-width: 420px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 1.8rem;
+            margin-bottom: 8px;
+            background: linear-gradient(90deg, #e94560, #ff9a8b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .subtitle {
+            color: #a0a0b0;
+            margin-bottom: 30px;
+            font-size: 0.95rem;
+        }
+
+        label {
+            display: block;
+            text-align: left;
+            margin-bottom: 8px;
+            color: #c0c0d0;
+            font-size: 0.9rem;
+        }
+
+        input[type="date"] {
+            width: 100%;
+            padding: 14px 16px;
+            border: none;
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+            font-size: 1rem;
+            margin-bottom: 25px;
+            outline: none;
+            transition: 0.3s;
+        }
+
+        input[type="date"]:focus {
+            background: rgba(255, 255, 255, 0.15);
+            box-shadow: 0 0 0 3px rgba(233, 69, 96, 0.3);
+        }
+
+        button {
+            width: 100%;
+            padding: 14px;
+            border: none;
+            border-radius: 12px;
+            background: linear-gradient(90deg, #e94560, #ff6b6b);
+            color: white;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(233, 69, 96, 0.4);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        #resultado {
+            margin-top: 30px;
+            padding: 25px;
+            border-radius: 16px;
+            background: rgba(255, 255, 255, 0.07);
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .signo-nome {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: #ff9a8b;
+        }
+
+        .signo-periodo {
+            color: #a0a0b0;
+            font-size: 0.95rem;
+            margin-bottom: 15px;
+        }
+
+        .signo-descricao {
+            font-size: 0.95rem;
+            line-height: 1.5;
+            color: #d0d0e0;
+        }
+
+        .emoji {
+            font-size: 3rem;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>✨ Descubra o Seu Signo</h1>
+        <p class="subtitle">Informe sua data de nascimento</p>
+
+        <label for="dataNascimento">Data de Nascimento</label>
+        <input type="date" id="dataNascimento">
+
+        <button onclick="descobrirSigno()">Descobrir Signo</button>
+
+        <div id="resultado">
+            <div class="emoji" id="emoji"></div>
+            <div class="signo-nome" id="nomeSigno"></div>
+            <div class="signo-periodo" id="periodo"></div>
+            <div class="signo-descricao" id="descricao"></div>
+        </div>
+    </div>
+
+    <script>
+        const signos = [
+            { nome: "Capricórnio", emoji: "♑", inicio: [12, 22], fim: [1, 19], desc: "Disciplinado, ambicioso e responsável. Você é determinado e valoriza a estabilidade." },
+            { nome: "Aquário", emoji: "♒", inicio: [1, 20], fim: [2, 18], desc: "Independente, inovador e humanitário. Você pensa fora da caixa e valoriza a liberdade." },
+            { nome: "Peixes", emoji: "♓", inicio: [2, 19], fim: [3, 20], desc: "Sensível, intuitivo e compassivo. Você tem uma imaginação rica e um grande coração." },
+            { nome: "Áries", emoji: "♈", inicio: [3, 21], fim: [4, 19], desc: "Corajoso, energético e impulsivo. Você é um pioneiro natural e adora desafios." },
+            { nome: "Touro", emoji: "♉", inicio: [4, 20], fim: [5, 20], desc: "Confiável, paciente e prático. Você valoriza o conforto e a segurança material." },
+            { nome: "Gêmeos", emoji: "♊", inicio: [5, 21], fim: [6, 20], desc: "Comunicativo, curioso e versátil. Você adora aprender e compartilhar ideias." },
+            { nome: "Câncer", emoji: "♋", inicio: [6, 21], fim: [7, 22], desc: "Protetor, emocional e intuitivo. Você é leal à família e tem um lado carinhoso." },
+            { nome: "Leão", emoji: "♌", inicio: [7, 23], fim: [8, 22], desc: "Confiante, generoso e carismático. Você brilha naturalmente e gosta de ser o centro." },
+            { nome: "Virgem", emoji: "♍", inicio: [8, 23], fim: [9, 22], desc: "Analítico, perfeccionista e prestativo. Você presta atenção aos detalhes e busca a excelência." },
+            { nome: "Libra", emoji: "♎", inicio: [9, 23], fim: [10, 22], desc: "Diplomático, justo e sociável. Você busca harmonia e valoriza os relacionamentos." },
+            { nome: "Escorpião", emoji: "♏", inicio: [10, 23], fim: [11, 21], desc: "Intenso, determinado e misterioso. Você tem grande força de vontade e intuição profunda." },
+            { nome: "Sagitário", emoji: "♐", inicio: [11, 22], fim: [12, 21], desc: "Otimista, aventureiro e filosófico. Você ama a liberdade e busca expandir horizontes." }
+        ];
+
+        function descobrirSigno() {
+            const dataInput = document.getElementById("dataNascimento").value;
+            
+            if (!dataInput) {
+                alert("Por favor, selecione sua data de nascimento!");
+                return;
+            }
+
+            const data = new Date(dataInput + "T00:00:00");
+            const dia = data.getDate();
+            const mes = data.getMonth() + 1;
+
+            let signoEncontrado = null;
+
+            for (let s of signos) {
+                const [mesInicio, diaInicio] = s.inicio;
+                const [mesFim, diaFim] = s.fim;
+
+                // Caso especial: Capricórnio (cruza o ano)
+                if (mesInicio > mesFim) {
+                    if ((mes === mesInicio && dia >= diaInicio) || (mes === mesFim && dia <= diaFim)) {
+                        signoEncontrado = s;
+                        break;
+                    }
+                } else {
+                    if ((mes === mesInicio && dia >= diaInicio) || (mes === mesFim && dia <= diaFim) || (mes > mesInicio && mes < mesFim)) {
+                        signoEncontrado = s;
+                        break;
+                    }
+                }
+            }
+
+            if (signoEncontrado) {
+                document.getElementById("emoji").textContent = signoEncontrado.emoji;
+                document.getElementById("nomeSigno").textContent = signoEncontrado.nome;
+                document.getElementById("periodo").textContent = formatarPeriodo(signoEncontrado);
+                document.getElementById("descricao").textContent = signoEncontrado.desc;
+                document.getElementById("resultado").style.display = "block";
+            }
+        }
+
+        function formatarPeriodo(signo) {
+            const meses = ["", "Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", 
+                           "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"];
+            
+            const [m1, d1] = signo.inicio;
+            const [m2, d2] = signo.fim;
+            
+            return `${d1} de ${meses[m1]} – ${d2} de ${meses[m2]}`;
+        }
+
+        // Enter também funciona
+        document.getElementById("dataNascimento").addEventListener("keypress", function(e) {
+            if (e.key === "Enter") descobrirSigno();
+        });
+    </script>
+</body>
+</html>
