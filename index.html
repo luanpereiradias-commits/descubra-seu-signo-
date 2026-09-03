@@ -14,7 +14,7 @@
 
         body {
             min-height: 100vh;
-            font-family: 'Outfit', sans-serif;
+            font-family: 'Outfit', system-ui, sans-serif;
             background: #0a0a1a;
             color: #fff;
             display: flex;
@@ -66,7 +66,6 @@
             box-shadow: 
                 0 25px 50px -12px rgba(0, 0, 0, 0.6),
                 0 0 0 1px rgba(255, 255, 255, 0.05) inset;
-            transition: transform 0.4s ease;
         }
 
         .header {
@@ -125,7 +124,7 @@
             background: rgba(255, 255, 255, 0.05);
             color: #fff;
             font-size: 1.05rem;
-            font-family: 'Outfit', sans-serif;
+            font-family: 'Outfit', system-ui, sans-serif;
             outline: none;
             transition: all 0.3s ease;
             color-scheme: dark;
@@ -147,12 +146,10 @@
             color: white;
             font-size: 1.1rem;
             font-weight: 600;
-            font-family: 'Outfit', sans-serif;
+            font-family: 'Outfit', system-ui, sans-serif;
             cursor: pointer;
             transition: all 0.4s ease;
             letter-spacing: 0.5px;
-            position: relative;
-            overflow: hidden;
         }
 
         button:hover {
@@ -165,11 +162,9 @@
             transform: translateY(0);
         }
 
-        /* Resultado */
         #resultado {
             margin-top: 32px;
             display: none;
-            animation: reveal 0.7s cubic-bezier(0.22, 1, 0.36, 1) forwards;
         }
 
         @keyframes reveal {
@@ -189,6 +184,7 @@
             border-radius: 20px;
             padding: 28px 24px;
             text-align: center;
+            animation: reveal 0.7s cubic-bezier(0.22, 1, 0.36, 1) forwards;
         }
 
         .emoji-grande {
@@ -218,7 +214,6 @@
             color: #c4b5fd;
             font-size: 0.9rem;
             margin-bottom: 20px;
-            font-weight: 400;
         }
 
         .info-grid {
@@ -281,7 +276,6 @@
             color: #64748b;
         }
 
-        /* Responsivo */
         @media (max-width: 480px) {
             .card {
                 padding: 32px 24px;
@@ -334,7 +328,6 @@
                     </div>
 
                     <p class="descricao" id="descricao"></p>
-
                     <div class="tags" id="tags"></div>
                 </div>
             </div>
@@ -344,11 +337,9 @@
 
     <script>
         // Criar estrelas
-        function criarEstrelas() {
+        (function criarEstrelas() {
             const container = document.getElementById('stars');
-            const quantidade = 80;
-
-            for (let i = 0; i < quantidade; i++) {
+            for (let i = 0; i < 80; i++) {
                 const star = document.createElement('div');
                 star.className = 'star';
                 const size = Math.random() * 2.5 + 0.5;
@@ -361,127 +352,78 @@
                 star.style.animationDelay = Math.random() * 5 + 's';
                 container.appendChild(star);
             }
-        }
-        criarEstrelas();
+        })();
 
         const signos = [
             {
-                nome: "Capricórnio",
-                emoji: "♑",
-                inicio: [12, 22],
-                fim: [1, 19],
-                elemento: "Terra 🜃",
-                planeta: "Saturno ♄",
+                nome: "Capricórnio", emoji: "♑", inicio: [12, 22], fim: [1, 19],
+                elemento: "Terra 🜃", planeta: "Saturno ♄",
                 desc: "Disciplinado, ambicioso e extremamente responsável. Você tem uma determinação inabalável e valoriza a estabilidade, o trabalho duro e as conquistas a longo prazo. Sua paciência é sua maior força.",
                 tags: ["Disciplinado", "Ambicioso", "Prático", "Responsável", "Persistente"]
             },
             {
-                nome: "Aquário",
-                emoji: "♒",
-                inicio: [1, 20],
-                fim: [2, 18],
-                elemento: "Ar 🜁",
-                planeta: "Urano ♅",
+                nome: "Aquário", emoji: "♒", inicio: [1, 20], fim: [2, 18],
+                elemento: "Ar 🜁", planeta: "Urano ♅",
                 desc: "Independente, visionário e humanitário. Você pensa de forma original e está sempre à frente do seu tempo. Valoriza a liberdade, a inovação e as causas coletivas. Sua mente é brilhante e única.",
                 tags: ["Independente", "Inovador", "Humanitário", "Original", "Visionário"]
             },
             {
-                nome: "Peixes",
-                emoji: "♓",
-                inicio: [2, 19],
-                fim: [3, 20],
-                elemento: "Água 🜄",
-                planeta: "Netuno ♆",
+                nome: "Peixes", emoji: "♓", inicio: [2, 19], fim: [3, 20],
+                elemento: "Água 🜄", planeta: "Netuno ♆",
                 desc: "Sensível, intuitivo e profundamente compassivo. Você possui uma imaginação rica e um coração generoso. Consegue sentir as emoções dos outros com facilidade e tem uma conexão especial com o mundo espiritual.",
                 tags: ["Sensível", "Intuitivo", "Compassivo", "Sonhador", "Empático"]
             },
             {
-                nome: "Áries",
-                emoji: "♈",
-                inicio: [3, 21],
-                fim: [4, 19],
-                elemento: "Fogo 🜂",
-                planeta: "Marte ♂",
+                nome: "Áries", emoji: "♈", inicio: [3, 21], fim: [4, 19],
+                elemento: "Fogo 🜂", planeta: "Marte ♂",
                 desc: "Corajoso, energético e pioneiro. Você age com impulsividade e liderança natural. Adora desafios, não tem medo de começar algo novo e inspira os outros com sua determinação e vitalidade.",
                 tags: ["Corajoso", "Energético", "Líder", "Impulsivo", "Pioneiro"]
             },
             {
-                nome: "Touro",
-                emoji: "♉",
-                inicio: [4, 20],
-                fim: [5, 20],
-                elemento: "Terra 🜃",
-                planeta: "Vênus ♀",
+                nome: "Touro", emoji: "♉", inicio: [4, 20], fim: [5, 20],
+                elemento: "Terra 🜃", planeta: "Vênus ♀",
                 desc: "Confiável, paciente e extremamente leal. Você valoriza o conforto, a segurança e os prazeres da vida. Tem um gosto refinado e uma determinação silenciosa que o leva longe. A estabilidade é essencial para você.",
                 tags: ["Confiável", "Paciente", "Sensual", "Leal", "Prático"]
             },
             {
-                nome: "Gêmeos",
-                emoji: "♊",
-                inicio: [5, 21],
-                fim: [6, 20],
-                elemento: "Ar 🜁",
-                planeta: "Mercúrio ☿",
+                nome: "Gêmeos", emoji: "♊", inicio: [5, 21], fim: [6, 20],
+                elemento: "Ar 🜁", planeta: "Mercúrio ☿",
                 desc: "Comunicativo, curioso e extremamente versátil. Sua mente é rápida e você adora aprender e compartilhar ideias. Tem o dom da palavra e se adapta com facilidade a qualquer situação ou ambiente.",
                 tags: ["Comunicativo", "Curioso", "Versátil", "Inteligente", "Sociável"]
             },
             {
-                nome: "Câncer",
-                emoji: "♋",
-                inicio: [6, 21],
-                fim: [7, 22],
-                elemento: "Água 🜄",
-                planeta: "Lua ☽",
+                nome: "Câncer", emoji: "♋", inicio: [6, 21], fim: [7, 22],
+                elemento: "Água 🜄", planeta: "Lua ☽",
                 desc: "Protetor, emocional e profundamente intuitivo. Você é leal à família e aos amigos e tem um lado carinhoso e acolhedor. Sua sensibilidade é uma força, e você cria laços emocionais fortes e duradouros.",
                 tags: ["Protetor", "Emocional", "Intuitivo", "Carinhoso", "Leal"]
             },
             {
-                nome: "Leão",
-                emoji: "♌",
-                inicio: [7, 23],
-                fim: [8, 22],
-                elemento: "Fogo 🜂",
-                planeta: "Sol ☉",
+                nome: "Leão", emoji: "♌", inicio: [7, 23], fim: [8, 22],
+                elemento: "Fogo 🜂", planeta: "Sol ☉",
                 desc: "Confiante, generoso e naturalmente carismático. Você brilha onde quer que esteja e tem um coração nobre. Gosta de ser apreciado e tem um talento especial para inspirar e liderar com generosidade.",
                 tags: ["Confiante", "Generoso", "Carismático", "Criativo", "Nobre"]
             },
             {
-                nome: "Virgem",
-                emoji: "♍",
-                inicio: [8, 23],
-                fim: [9, 22],
-                elemento: "Terra 🜃",
-                planeta: "Mercúrio ☿",
+                nome: "Virgem", emoji: "♍", inicio: [8, 23], fim: [9, 22],
+                elemento: "Terra 🜃", planeta: "Mercúrio ☿",
                 desc: "Analítico, perfeccionista e extremamente prestativo. Você presta atenção aos mínimos detalhes e busca a excelência em tudo o que faz. Sua mente prática e organizada é uma grande aliada no dia a dia.",
-                tags: ["Analítico", "Perfeicionista", "Prestativo", "Organizado", "Preciso"]
+                tags: ["Analítico", "Perfeccionista", "Prestativo", "Organizado", "Preciso"]
             },
             {
-                nome: "Libra",
-                emoji: "♎",
-                inicio: [9, 23],
-                fim: [10, 22],
-                elemento: "Ar 🜁",
-                planeta: "Vênus ♀",
+                nome: "Libra", emoji: "♎", inicio: [9, 23], fim: [10, 22],
+                elemento: "Ar 🜁", planeta: "Vênus ♀",
                 desc: "Diplomático, justo e extremamente sociável. Você busca harmonia em todas as áreas da vida e tem um forte senso de justiça. Valoriza a beleza, os relacionamentos e o equilíbrio em todas as coisas.",
                 tags: ["Diplomático", "Justo", "Sociável", "Charmoso", "Equilibrado"]
             },
             {
-                nome: "Escorpião",
-                emoji: "♏",
-                inicio: [10, 23],
-                fim: [11, 21],
-                elemento: "Água 🜄",
-                planeta: "Plutão ♇",
+                nome: "Escorpião", emoji: "♏", inicio: [10, 23], fim: [11, 21],
+                elemento: "Água 🜄", planeta: "Plutão ♇",
                 desc: "Intenso, determinado e profundamente misterioso. Você tem uma força de vontade impressionante e uma intuição aguçada. Não tem medo de explorar as profundezas emocionais e transforma tudo o que toca.",
                 tags: ["Intenso", "Determinado", "Misterioso", "Apaixonado", "Transformador"]
             },
             {
-                nome: "Sagitário",
-                emoji: "♐",
-                inicio: [11, 22],
-                fim: [12, 21],
-                elemento: "Fogo 🜂",
-                planeta: "Júpiter ♃",
+                nome: "Sagitário", emoji: "♐", inicio: [11, 22], fim: [12, 21],
+                elemento: "Fogo 🜂", planeta: "Júpiter ♃",
                 desc: "Otimista, aventureiro e filosófico. Você ama a liberdade e está sempre em busca de novos horizontes. Sua mente aberta e seu espírito explorador inspiram todos ao seu redor a expandir os limites.",
                 tags: ["Otimista", "Aventureiro", "Filosófico", "Livre", "Entusiasta"]
             }
@@ -538,30 +480,21 @@
                     tagsContainer.appendChild(span);
                 });
 
-                const resultado = document.getElementById("resultado");
-                resultado.style.display = "block";
-                
-                // Reinicia a animação
-                resultado.style.animation = "none";
-                resultado.offsetHeight; // force reflow
-                resultado.style.animation = "reveal 0.7s cubic-bezier(0.22, 1, 0.36, 1) forwards";
+                document.getElementById("resultado").style.display = "block";
             }
         }
 
         function formatarPeriodo(signo) {
             const meses = ["", "Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho",
                            "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"];
-            
             const [m1, d1] = signo.inicio;
             const [m2, d2] = signo.fim;
-            
             return `${d1} de ${meses[m1]}  —  ${d2} de ${meses[m2]}`;
         }
 
-        // Enter também funciona
         document.getElementById("dataNascimento").addEventListener("keypress", function(e) {
             if (e.key === "Enter") descobrirSigno();
         });
     </script>
 </body>
-</html> 
+</html>
