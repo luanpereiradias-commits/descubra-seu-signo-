@@ -3,181 +3,499 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Descubra o Seu Signo</title>
+    <title>Descubra o Seu Signo ✦</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Cinzel:wght@500;600&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', system-ui, sans-serif;
         }
 
         body {
             min-height: 100vh;
-            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            font-family: 'Outfit', sans-serif;
+            background: #0a0a1a;
+            color: #fff;
             display: flex;
             justify-content: center;
             align-items: center;
-            color: #fff;
             padding: 20px;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Estrelas de fundo */
+        .stars {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .star {
+            position: absolute;
+            background: #fff;
+            border-radius: 50%;
+            animation: twinkle var(--duration) ease-in-out infinite;
+            opacity: 0;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0; transform: scale(0.5); }
+            50% { opacity: var(--opacity); transform: scale(1); }
         }
 
         .container {
-            background: rgba(255, 255, 255, 0.08);
-            backdrop-filter: blur(12px);
-            border-radius: 20px;
-            padding: 40px 30px;
+            position: relative;
+            z-index: 1;
             width: 100%;
-            max-width: 420px;
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            max-width: 480px;
+        }
+
+        .card {
+            background: rgba(20, 20, 45, 0.75);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-radius: 28px;
+            padding: 42px 36px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 
+                0 25px 50px -12px rgba(0, 0, 0, 0.6),
+                0 0 0 1px rgba(255, 255, 255, 0.05) inset;
+            transition: transform 0.4s ease;
+        }
+
+        .header {
             text-align: center;
+            margin-bottom: 36px;
+        }
+
+        .header .icon {
+            font-size: 2.8rem;
+            margin-bottom: 12px;
+            display: inline-block;
+            animation: float 4s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-8px); }
         }
 
         h1 {
-            font-size: 1.8rem;
-            margin-bottom: 8px;
-            background: linear-gradient(90deg, #e94560, #ff9a8b);
+            font-family: 'Cinzel', serif;
+            font-size: 1.9rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            background: linear-gradient(135deg, #f5d0fe, #c084fc, #818cf8);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 8px;
         }
 
         .subtitle {
-            color: #a0a0b0;
-            margin-bottom: 30px;
+            color: #94a3b8;
             font-size: 0.95rem;
+            font-weight: 300;
+        }
+
+        .form-group {
+            margin-bottom: 28px;
         }
 
         label {
             display: block;
-            text-align: left;
-            margin-bottom: 8px;
-            color: #c0c0d0;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
+            color: #a5b4fc;
+            margin-bottom: 10px;
+            font-weight: 500;
+            letter-spacing: 0.3px;
         }
 
         input[type="date"] {
             width: 100%;
-            padding: 14px 16px;
-            border: none;
-            border-radius: 12px;
-            background: rgba(255, 255, 255, 0.1);
+            padding: 16px 18px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 14px;
+            background: rgba(255, 255, 255, 0.05);
             color: #fff;
-            font-size: 1rem;
-            margin-bottom: 25px;
+            font-size: 1.05rem;
+            font-family: 'Outfit', sans-serif;
             outline: none;
-            transition: 0.3s;
+            transition: all 0.3s ease;
+            color-scheme: dark;
         }
 
         input[type="date"]:focus {
-            background: rgba(255, 255, 255, 0.15);
-            box-shadow: 0 0 0 3px rgba(233, 69, 96, 0.3);
+            border-color: #a78bfa;
+            background: rgba(167, 139, 250, 0.08);
+            box-shadow: 0 0 0 4px rgba(167, 139, 250, 0.15);
         }
 
         button {
             width: 100%;
-            padding: 14px;
+            padding: 16px;
             border: none;
-            border-radius: 12px;
-            background: linear-gradient(90deg, #e94560, #ff6b6b);
+            border-radius: 14px;
+            background: linear-gradient(135deg, #7c3aed, #a855f7, #ec4899);
+            background-size: 200% 200%;
             color: white;
             font-size: 1.1rem;
             font-weight: 600;
+            font-family: 'Outfit', sans-serif;
             cursor: pointer;
-            transition: transform 0.2s, box-shadow 0.2s;
+            transition: all 0.4s ease;
+            letter-spacing: 0.5px;
+            position: relative;
+            overflow: hidden;
         }
 
         button:hover {
             transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(233, 69, 96, 0.4);
+            box-shadow: 0 12px 30px rgba(168, 85, 247, 0.4);
+            background-position: 100% 0;
         }
 
         button:active {
             transform: translateY(0);
         }
 
+        /* Resultado */
         #resultado {
-            margin-top: 30px;
-            padding: 25px;
-            border-radius: 16px;
-            background: rgba(255, 255, 255, 0.07);
+            margin-top: 32px;
             display: none;
-            animation: fadeIn 0.5s ease;
+            animation: reveal 0.7s cubic-bezier(0.22, 1, 0.36, 1) forwards;
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
+        @keyframes reveal {
+            from {
+                opacity: 0;
+                transform: translateY(30px) scale(0.96);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        .resultado-card {
+            background: linear-gradient(160deg, rgba(124, 58, 237, 0.15), rgba(236, 72, 153, 0.1));
+            border: 1px solid rgba(167, 139, 250, 0.25);
+            border-radius: 20px;
+            padding: 28px 24px;
+            text-align: center;
+        }
+
+        .emoji-grande {
+            font-size: 4.2rem;
+            margin-bottom: 8px;
+            display: inline-block;
+            animation: pulse 2.5s ease-in-out infinite;
+            filter: drop-shadow(0 0 12px rgba(167, 139, 250, 0.5));
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.08); }
         }
 
         .signo-nome {
-            font-size: 2rem;
-            font-weight: 700;
-            margin-bottom: 8px;
-            color: #ff9a8b;
+            font-family: 'Cinzel', serif;
+            font-size: 2.1rem;
+            font-weight: 600;
+            background: linear-gradient(90deg, #e9d5ff, #fbcfe8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 6px;
         }
 
         .signo-periodo {
-            color: #a0a0b0;
-            font-size: 0.95rem;
-            margin-bottom: 15px;
+            color: #c4b5fd;
+            font-size: 0.9rem;
+            margin-bottom: 20px;
+            font-weight: 400;
         }
 
-        .signo-descricao {
-            font-size: 0.95rem;
-            line-height: 1.5;
-            color: #d0d0e0;
+        .info-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-bottom: 20px;
         }
 
-        .emoji {
-            font-size: 3rem;
-            margin-bottom: 10px;
+        .info-item {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            padding: 12px 10px;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+        }
+
+        .info-label {
+            font-size: 0.7rem;
+            color: #94a3b8;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            margin-bottom: 4px;
+        }
+
+        .info-value {
+            font-size: 0.95rem;
+            font-weight: 500;
+            color: #e2e8f0;
+        }
+
+        .descricao {
+            font-size: 0.95rem;
+            line-height: 1.65;
+            color: #cbd5e1;
+            margin-bottom: 18px;
+            text-align: left;
+        }
+
+        .tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            justify-content: center;
+        }
+
+        .tag {
+            background: rgba(167, 139, 250, 0.15);
+            color: #e9d5ff;
+            font-size: 0.78rem;
+            padding: 5px 12px;
+            border-radius: 20px;
+            border: 1px solid rgba(167, 139, 250, 0.25);
+            font-weight: 500;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 24px;
+            font-size: 0.75rem;
+            color: #64748b;
+        }
+
+        /* Responsivo */
+        @media (max-width: 480px) {
+            .card {
+                padding: 32px 24px;
+            }
+            h1 {
+                font-size: 1.6rem;
+            }
+            .emoji-grande {
+                font-size: 3.5rem;
+            }
+            .signo-nome {
+                font-size: 1.8rem;
+            }
         }
     </style>
 </head>
 <body>
+    <div class="stars" id="stars"></div>
+
     <div class="container">
-        <h1>✨ Descubra o Seu Signo</h1>
-        <p class="subtitle">Informe sua data de nascimento</p>
+        <div class="card">
+            <div class="header">
+                <div class="icon">✨</div>
+                <h1>Descubra o Seu Signo</h1>
+                <p class="subtitle">As estrelas revelam quem você é</p>
+            </div>
 
-        <label for="dataNascimento">Data de Nascimento</label>
-        <input type="date" id="dataNascimento">
+            <div class="form-group">
+                <label for="dataNascimento">Data de Nascimento</label>
+                <input type="date" id="dataNascimento">
+            </div>
 
-        <button onclick="descobrirSigno()">Descobrir Signo</button>
+            <button onclick="descobrirSigno()">✦ Revelar Meu Signo</button>
 
-        <div id="resultado">
-            <div class="emoji" id="emoji"></div>
-            <div class="signo-nome" id="nomeSigno"></div>
-            <div class="signo-periodo" id="periodo"></div>
-            <div class="signo-descricao" id="descricao"></div>
+            <div id="resultado">
+                <div class="resultado-card">
+                    <div class="emoji-grande" id="emoji"></div>
+                    <div class="signo-nome" id="nomeSigno"></div>
+                    <div class="signo-periodo" id="periodo"></div>
+
+                    <div class="info-grid">
+                        <div class="info-item">
+                            <div class="info-label">Elemento</div>
+                            <div class="info-value" id="elemento"></div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-label">Planeta</div>
+                            <div class="info-value" id="planeta"></div>
+                        </div>
+                    </div>
+
+                    <p class="descricao" id="descricao"></p>
+
+                    <div class="tags" id="tags"></div>
+                </div>
+            </div>
         </div>
+        <p class="footer">✦ Astrologia ocidental • Apenas para diversão ✦</p>
     </div>
 
     <script>
+        // Criar estrelas
+        function criarEstrelas() {
+            const container = document.getElementById('stars');
+            const quantidade = 80;
+
+            for (let i = 0; i < quantidade; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                const size = Math.random() * 2.5 + 0.5;
+                star.style.width = size + 'px';
+                star.style.height = size + 'px';
+                star.style.left = Math.random() * 100 + '%';
+                star.style.top = Math.random() * 100 + '%';
+                star.style.setProperty('--opacity', Math.random() * 0.7 + 0.3);
+                star.style.setProperty('--duration', (Math.random() * 4 + 3) + 's');
+                star.style.animationDelay = Math.random() * 5 + 's';
+                container.appendChild(star);
+            }
+        }
+        criarEstrelas();
+
         const signos = [
-            { nome: "Capricórnio", emoji: "♑", inicio: [12, 22], fim: [1, 19], desc: "Disciplinado, ambicioso e responsável. Você é determinado e valoriza a estabilidade." },
-            { nome: "Aquário", emoji: "♒", inicio: [1, 20], fim: [2, 18], desc: "Independente, inovador e humanitário. Você pensa fora da caixa e valoriza a liberdade." },
-            { nome: "Peixes", emoji: "♓", inicio: [2, 19], fim: [3, 20], desc: "Sensível, intuitivo e compassivo. Você tem uma imaginação rica e um grande coração." },
-            { nome: "Áries", emoji: "♈", inicio: [3, 21], fim: [4, 19], desc: "Corajoso, energético e impulsivo. Você é um pioneiro natural e adora desafios." },
-            { nome: "Touro", emoji: "♉", inicio: [4, 20], fim: [5, 20], desc: "Confiável, paciente e prático. Você valoriza o conforto e a segurança material." },
-            { nome: "Gêmeos", emoji: "♊", inicio: [5, 21], fim: [6, 20], desc: "Comunicativo, curioso e versátil. Você adora aprender e compartilhar ideias." },
-            { nome: "Câncer", emoji: "♋", inicio: [6, 21], fim: [7, 22], desc: "Protetor, emocional e intuitivo. Você é leal à família e tem um lado carinhoso." },
-            { nome: "Leão", emoji: "♌", inicio: [7, 23], fim: [8, 22], desc: "Confiante, generoso e carismático. Você brilha naturalmente e gosta de ser o centro." },
-            { nome: "Virgem", emoji: "♍", inicio: [8, 23], fim: [9, 22], desc: "Analítico, perfeccionista e prestativo. Você presta atenção aos detalhes e busca a excelência." },
-            { nome: "Libra", emoji: "♎", inicio: [9, 23], fim: [10, 22], desc: "Diplomático, justo e sociável. Você busca harmonia e valoriza os relacionamentos." },
-            { nome: "Escorpião", emoji: "♏", inicio: [10, 23], fim: [11, 21], desc: "Intenso, determinado e misterioso. Você tem grande força de vontade e intuição profunda." },
-            { nome: "Sagitário", emoji: "♐", inicio: [11, 22], fim: [12, 21], desc: "Otimista, aventureiro e filosófico. Você ama a liberdade e busca expandir horizontes." }
+            {
+                nome: "Capricórnio",
+                emoji: "♑",
+                inicio: [12, 22],
+                fim: [1, 19],
+                elemento: "Terra 🜃",
+                planeta: "Saturno ♄",
+                desc: "Disciplinado, ambicioso e extremamente responsável. Você tem uma determinação inabalável e valoriza a estabilidade, o trabalho duro e as conquistas a longo prazo. Sua paciência é sua maior força.",
+                tags: ["Disciplinado", "Ambicioso", "Prático", "Responsável", "Persistente"]
+            },
+            {
+                nome: "Aquário",
+                emoji: "♒",
+                inicio: [1, 20],
+                fim: [2, 18],
+                elemento: "Ar 🜁",
+                planeta: "Urano ♅",
+                desc: "Independente, visionário e humanitário. Você pensa de forma original e está sempre à frente do seu tempo. Valoriza a liberdade, a inovação e as causas coletivas. Sua mente é brilhante e única.",
+                tags: ["Independente", "Inovador", "Humanitário", "Original", "Visionário"]
+            },
+            {
+                nome: "Peixes",
+                emoji: "♓",
+                inicio: [2, 19],
+                fim: [3, 20],
+                elemento: "Água 🜄",
+                planeta: "Netuno ♆",
+                desc: "Sensível, intuitivo e profundamente compassivo. Você possui uma imaginação rica e um coração generoso. Consegue sentir as emoções dos outros com facilidade e tem uma conexão especial com o mundo espiritual.",
+                tags: ["Sensível", "Intuitivo", "Compassivo", "Sonhador", "Empático"]
+            },
+            {
+                nome: "Áries",
+                emoji: "♈",
+                inicio: [3, 21],
+                fim: [4, 19],
+                elemento: "Fogo 🜂",
+                planeta: "Marte ♂",
+                desc: "Corajoso, energético e pioneiro. Você age com impulsividade e liderança natural. Adora desafios, não tem medo de começar algo novo e inspira os outros com sua determinação e vitalidade.",
+                tags: ["Corajoso", "Energético", "Líder", "Impulsivo", "Pioneiro"]
+            },
+            {
+                nome: "Touro",
+                emoji: "♉",
+                inicio: [4, 20],
+                fim: [5, 20],
+                elemento: "Terra 🜃",
+                planeta: "Vênus ♀",
+                desc: "Confiável, paciente e extremamente leal. Você valoriza o conforto, a segurança e os prazeres da vida. Tem um gosto refinado e uma determinação silenciosa que o leva longe. A estabilidade é essencial para você.",
+                tags: ["Confiável", "Paciente", "Sensual", "Leal", "Prático"]
+            },
+            {
+                nome: "Gêmeos",
+                emoji: "♊",
+                inicio: [5, 21],
+                fim: [6, 20],
+                elemento: "Ar 🜁",
+                planeta: "Mercúrio ☿",
+                desc: "Comunicativo, curioso e extremamente versátil. Sua mente é rápida e você adora aprender e compartilhar ideias. Tem o dom da palavra e se adapta com facilidade a qualquer situação ou ambiente.",
+                tags: ["Comunicativo", "Curioso", "Versátil", "Inteligente", "Sociável"]
+            },
+            {
+                nome: "Câncer",
+                emoji: "♋",
+                inicio: [6, 21],
+                fim: [7, 22],
+                elemento: "Água 🜄",
+                planeta: "Lua ☽",
+                desc: "Protetor, emocional e profundamente intuitivo. Você é leal à família e aos amigos e tem um lado carinhoso e acolhedor. Sua sensibilidade é uma força, e você cria laços emocionais fortes e duradouros.",
+                tags: ["Protetor", "Emocional", "Intuitivo", "Carinhoso", "Leal"]
+            },
+            {
+                nome: "Leão",
+                emoji: "♌",
+                inicio: [7, 23],
+                fim: [8, 22],
+                elemento: "Fogo 🜂",
+                planeta: "Sol ☉",
+                desc: "Confiante, generoso e naturalmente carismático. Você brilha onde quer que esteja e tem um coração nobre. Gosta de ser apreciado e tem um talento especial para inspirar e liderar com generosidade.",
+                tags: ["Confiante", "Generoso", "Carismático", "Criativo", "Nobre"]
+            },
+            {
+                nome: "Virgem",
+                emoji: "♍",
+                inicio: [8, 23],
+                fim: [9, 22],
+                elemento: "Terra 🜃",
+                planeta: "Mercúrio ☿",
+                desc: "Analítico, perfeccionista e extremamente prestativo. Você presta atenção aos mínimos detalhes e busca a excelência em tudo o que faz. Sua mente prática e organizada é uma grande aliada no dia a dia.",
+                tags: ["Analítico", "Perfeicionista", "Prestativo", "Organizado", "Preciso"]
+            },
+            {
+                nome: "Libra",
+                emoji: "♎",
+                inicio: [9, 23],
+                fim: [10, 22],
+                elemento: "Ar 🜁",
+                planeta: "Vênus ♀",
+                desc: "Diplomático, justo e extremamente sociável. Você busca harmonia em todas as áreas da vida e tem um forte senso de justiça. Valoriza a beleza, os relacionamentos e o equilíbrio em todas as coisas.",
+                tags: ["Diplomático", "Justo", "Sociável", "Charmoso", "Equilibrado"]
+            },
+            {
+                nome: "Escorpião",
+                emoji: "♏",
+                inicio: [10, 23],
+                fim: [11, 21],
+                elemento: "Água 🜄",
+                planeta: "Plutão ♇",
+                desc: "Intenso, determinado e profundamente misterioso. Você tem uma força de vontade impressionante e uma intuição aguçada. Não tem medo de explorar as profundezas emocionais e transforma tudo o que toca.",
+                tags: ["Intenso", "Determinado", "Misterioso", "Apaixonado", "Transformador"]
+            },
+            {
+                nome: "Sagitário",
+                emoji: "♐",
+                inicio: [11, 22],
+                fim: [12, 21],
+                elemento: "Fogo 🜂",
+                planeta: "Júpiter ♃",
+                desc: "Otimista, aventureiro e filosófico. Você ama a liberdade e está sempre em busca de novos horizontes. Sua mente aberta e seu espírito explorador inspiram todos ao seu redor a expandir os limites.",
+                tags: ["Otimista", "Aventureiro", "Filosófico", "Livre", "Entusiasta"]
+            }
         ];
 
         function descobrirSigno() {
             const dataInput = document.getElementById("dataNascimento").value;
             
             if (!dataInput) {
-                alert("Por favor, selecione sua data de nascimento!");
+                alert("Por favor, selecione sua data de nascimento ✨");
                 return;
             }
 
-            const data = new Date(dataInput + "T00:00:00");
+            const data = new Date(dataInput + "T12:00:00");
             const dia = data.getDate();
             const mes = data.getMonth() + 1;
 
@@ -187,14 +505,16 @@
                 const [mesInicio, diaInicio] = s.inicio;
                 const [mesFim, diaFim] = s.fim;
 
-                // Caso especial: Capricórnio (cruza o ano)
                 if (mesInicio > mesFim) {
+                    // Capricórnio (cruza o ano)
                     if ((mes === mesInicio && dia >= diaInicio) || (mes === mesFim && dia <= diaFim)) {
                         signoEncontrado = s;
                         break;
                     }
                 } else {
-                    if ((mes === mesInicio && dia >= diaInicio) || (mes === mesFim && dia <= diaFim) || (mes > mesInicio && mes < mesFim)) {
+                    if ((mes === mesInicio && dia >= diaInicio) || 
+                        (mes === mesFim && dia <= diaFim) || 
+                        (mes > mesInicio && mes < mesFim)) {
                         signoEncontrado = s;
                         break;
                     }
@@ -205,19 +525,37 @@
                 document.getElementById("emoji").textContent = signoEncontrado.emoji;
                 document.getElementById("nomeSigno").textContent = signoEncontrado.nome;
                 document.getElementById("periodo").textContent = formatarPeriodo(signoEncontrado);
+                document.getElementById("elemento").textContent = signoEncontrado.elemento;
+                document.getElementById("planeta").textContent = signoEncontrado.planeta;
                 document.getElementById("descricao").textContent = signoEncontrado.desc;
-                document.getElementById("resultado").style.display = "block";
+
+                const tagsContainer = document.getElementById("tags");
+                tagsContainer.innerHTML = "";
+                signoEncontrado.tags.forEach(tag => {
+                    const span = document.createElement("span");
+                    span.className = "tag";
+                    span.textContent = tag;
+                    tagsContainer.appendChild(span);
+                });
+
+                const resultado = document.getElementById("resultado");
+                resultado.style.display = "block";
+                
+                // Reinicia a animação
+                resultado.style.animation = "none";
+                resultado.offsetHeight; // force reflow
+                resultado.style.animation = "reveal 0.7s cubic-bezier(0.22, 1, 0.36, 1) forwards";
             }
         }
 
         function formatarPeriodo(signo) {
-            const meses = ["", "Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", 
+            const meses = ["", "Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho",
                            "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"];
             
             const [m1, d1] = signo.inicio;
             const [m2, d2] = signo.fim;
             
-            return `${d1} de ${meses[m1]} – ${d2} de ${meses[m2]}`;
+            return `${d1} de ${meses[m1]}  —  ${d2} de ${meses[m2]}`;
         }
 
         // Enter também funciona
